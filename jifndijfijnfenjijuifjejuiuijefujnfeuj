@@ -3005,6 +3005,16 @@ task.spawn(function()
     end
 end)
 
+Tabs.Main:AddButton({
+    Title = "Kaitun",
+    Description = "",
+    Callback = function()
+      loadstring(game:HttpGet(
+        'https://raw.githubusercontent.com/WxHxCxKxExR/Normal_Pc/main/UI_MB_SALFESx2.lua'))()
+    end
+})
+
+
 
 local AutoFarmLevel = Tabs.Main:AddToggle("AutoFarmLevel", {Title = "Auto-Farm-Level", Default = false })
 
@@ -3044,30 +3054,5 @@ AutoEventChestHop:OnChanged(function(value)
     if not value then
         UseSkillFarm = false
     end
-end)
-
-local AutoEnabledBusoHaki = Tabs.Main:AddToggle("AutoEnabledBusoHaki", {Title = "Auto-Enabled-Buso-Haki", Default = false })
-
-AutoEnabledBusoHaki:OnChanged(function(value)
-    _G.BusoHaki = value
-end)
-
-local AutoEnabledKenHaki = Tabs.Main:AddToggle("AutoEnabledKenHaki", {Title = "Auto-Enabled-Ken-Haki", Default = false })
-
-AutoEnabledKenHaki:OnChanged(function(value)
-    _G.KenHaki = value
-end)
-
-pcall(function()
-	for i,v in pairs(game:GetService("Workspace").Monster.Boss:GetChildren()) do
-		if v:IsA("Model") then
-			table.insert(Mob,v.Name)
-		end
-	end
-	for i,v in pairs(game:GetService("Workspace").Monster.Mon:GetChildren()) do
-		if v:IsA("Model") then
-			table.insert(Mob,v.Name)
-		end
-	end
 end)
 
