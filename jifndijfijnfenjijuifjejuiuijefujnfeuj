@@ -3005,26 +3005,40 @@ task.spawn(function()
     end
 end)
 
-Tabs.Main:AddButton({
-    Title = "Kaitun",
-    Description = "",
-    Callback = function()
-      loadstring(game:HttpGet(
-        'https://raw.githubusercontent.com/WxHxCxKxExR/Normal_Pc/main/UI_MB_SALFESx2.lua'))()
-    end
-})
-
-
 
 local AutoFarmLevel = Tabs.Main:AddToggle("AutoFarmLevel", {Title = "Auto-Farm-Level", Default = false })
 
-AutoFarmLevel:OnChanged(function(value)
-    _G.AutoFarmLevel = value
-	
-    if not value then
-        UseSkillFarm = false
-    end
-end)
+AutoFarmLevel:OnChanged(function(vu)
+    _G.AutoFarm = vu
+          Magnet = vu
+      if _G.AutoFarm and SelectToolWeapon == "" then
+          ui:Notification("AutoFarm","SelectWeapon First ",2)
+      else
+          Auto_Farm = vu
+          SelectMonster = ""
+          if vu == false then
+              wait(1)
+              TP(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame)
+          end
+      end
+         function UseCode(Text)
+          game:GetService("ReplicatedStorage").Remotes.Redeem:InvokeServer(Text)
+      end
+      UseCode("UPD16")
+      UseCode("2BILLION")
+      UseCode("UPD15")
+      UseCode("FUDD10")
+      UseCode("BIGNEWS")
+      UseCode("THEGREATACE")
+      UseCode("SUB2GAMERROBOT_EXP1")
+      UseCode("StrawHatMaine")
+      UseCode("Sub2OfficialNoobie")
+      UseCode("SUB2NOOBMASTER123")
+      UseCode("Sub2Daigrock")
+      UseCode("Axiore")
+      UseCode("TantaiGaming")
+      UseCode("STRAWHATMAINE") 
+    end)
 
 local AutoNewWorld = Tabs.Main:AddToggle("AutoNewWorld", {Title = "Auto-New-World", Default = false })
 
