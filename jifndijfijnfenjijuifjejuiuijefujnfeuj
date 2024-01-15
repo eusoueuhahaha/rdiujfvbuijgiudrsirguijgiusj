@@ -19,7 +19,7 @@ local CheckMobile = function()
   local screenHeight = screenResolution.Y
   
   local windowWidth = screenWidth * 0.6
-  local windowHeight = screenHeight * 0.6
+  local windowHeight = screenHeight * 0.8
   
   -- UDim2.fromOffset(580, 460),
   if not IsMobile then 
@@ -99,12 +99,12 @@ local CheckMobile = function()
         Icon = "gem"
     }),
     Main = Window:AddTab({
-        Title = "Main",
-        Icon = "banknote"
+        Title = "Auto Farm",
+        Icon = "align-end-vertical"
     }),
     ItemQuest = Window:AddTab({
         Title = "Item & Quest",
-        Icon = "gamepad"
+        Icon = "list-checks"
     }),
     StatsCombat = Window:AddTab({
         Title = "Stats & Combat",
@@ -112,15 +112,15 @@ local CheckMobile = function()
     }),
     Shop = Window:AddTab({
         Title = "Shop",
-        Icon = "egg"
+        Icon = "gift"
     }),
     Teleports = Window:AddTab({
         Title = "Teleports",
-        Icon = "aperture"
+        Icon = "fast-forward"
     }),
     Dungeon = Window:AddTab({
         Title = "Dungeon",
-        Icon = "settings"
+        Icon = "diff"
     }),
     Misc = Window:AddTab({
         Title = "Misc",
@@ -3076,6 +3076,8 @@ task.spawn(function()
 	end
 end)
 
+
+
 local Distance = Tabs.Main:AddSlider("Distance", {
     Title = "Distance",
     Description = "",
@@ -3088,46 +3090,33 @@ local Distance = Tabs.Main:AddSlider("Distance", {
     end
 })
 
-local AutoNewWorld = Tabs.Main:AddToggle("AutoNewWorld", {Title = "Auto New World", Default = false })
 
-AutoNewWorld:OnChanged(function(value)
-    _G.AutoNewWorld = value
-	
-    if not value then
-        UseSkillFarm = false
-    end
-end)
+Listquest = {
+	"Quest : Lv. 0+",
+	"Quest : Lv. 5+",
+	"Quest : Lv. 500+",
+	"Quest : Lv. 2000+",
+	"Quest : Lv. 3000+",
+	"Quest : Lv. 3500+",
+	"Quest : Lv. 3800+",
+	"Quest Boxes : Lv. 3000+",
+	"Quest Disobey : Lv. 3000+",
+	"Quest DeadAbove : Lv. 3000+",
+	"Lore Bone Hunter",
+	"Lore Sea Madness",
+	"Lore Sea Diving",
+	"Lore Sea Sick!",
+	"Lore Sea Creature"
+}
+if _G.IsMode == nil then _G.IsMode = Listquest[1] end
+local SelectQuest = Tabs.Main:AddDropdown("SelectQuest", {
+    Title = "Select Quest",
+    Values = Listquest,
+    Multi = false,
+})
 
-local AutoEventChest = Tabs.Main:AddToggle("AutoEventChest", {Title = "Auto Event Chest", Default = false })
-
-AutoEventChest:OnChanged(function(value)
-    _G.AutoMonsterEvent = value
-	
-    if not value then
-        UseSkillFarm = false
-    end
-end)
-
-local AutoEventChestHop = Tabs.Main:AddToggle("AutoEventChestHop", {Title = "Auto Event Chest Hop", Default = false })
-
-AutoEventChestHop:OnChanged(function(value)
-    _G.AutoMonsterEventHop = value
-	
-    if not value then
-        UseSkillFarm = false
-    end
-end)
-
-local AutoEnabledBusoHaki = Tabs.Main:AddToggle("AutoEnabledBusoHaki", {Title = "Auto Enabled Buso Haki", Default = false })
-
-AutoEnabledBusoHaki:OnChanged(function(value)
-    _G.BusoHaki = value
-end)
-
-local AutoEnabledKenHaki = Tabs.Main:AddToggle("AutoEnabledKenHaki", {Title = "Auto Enabled Ken Haki", Default = false })
-
-AutoEnabledKenHaki:OnChanged(function(value)
-    _G.KenHaki = value
+SelectQuest:OnChanged(function(value)
+    _G.IsMode = value
 end)
 
 Mob = {}
@@ -3206,32 +3195,14 @@ AutoFarmMaterial:OnChanged(function(value)
     end
 end)
 
-Listquest = {
-	"Quest : Lv. 0+",
-	"Quest : Lv. 5+",
-	"Quest : Lv. 500+",
-	"Quest : Lv. 2000+",
-	"Quest : Lv. 3000+",
-	"Quest : Lv. 3500+",
-	"Quest : Lv. 3800+",
-	"Quest Boxes : Lv. 3000+",
-	"Quest Disobey : Lv. 3000+",
-	"Quest DeadAbove : Lv. 3000+",
-	"Lore Bone Hunter",
-	"Lore Sea Madness",
-	"Lore Sea Diving",
-	"Lore Sea Sick!",
-	"Lore Sea Creature"
-}
-if _G.IsMode == nil then _G.IsMode = Listquest[1] end
-local SelectQuest = Tabs.Main:AddDropdown("SelectQuest", {
-    Title = "Select Quest",
-    Values = Listquest,
-    Multi = false,
-})
+local AutoEventChest = Tabs.Main:AddToggle("AutoEventChest", {Title = "Auto Event Chest", Default = false })
 
-SelectQuest:OnChanged(function(value)
-    _G.IsMode = value
+AutoEventChest:OnChanged(function(value)
+    _G.AutoMonsterEvent = value
+	
+    if not value then
+        UseSkillFarm = false
+    end
 end)
 
 local AutoSweetLozenge = Tabs.Main:AddToggle("AutoSweetLozenge", {Title = "Auto Sweet Lozenge", Default = false })
@@ -3244,15 +3215,6 @@ AutoSweetLozenge:OnChanged(function(value)
     end
 end)
 
-local AutoSweetLozengeHop = Tabs.Main:AddToggle("AutoSweetLozengeHop", {Title = "Auto Sweet Lozenge Hop", Default = false })
-
-AutoSweetLozengeHop:OnChanged(function(value)
-    _G.SweetLozengeHop = value
-	
-    if not value then
-        UseSkillFarm = false
-    end
-end)
 
 local AutoHybridDeer = Tabs.Main:AddToggle("AutoHybridDeer", {Title = "Auto Hybrid Deer", Default = false })
 
@@ -3284,15 +3246,10 @@ AutoHydraMonster:OnChanged(function(value)
     end
 end)
 
-local AutoHydraMonsterHop = Tabs.Main:AddToggle("AutoHydraMonsterHop", {Title = "Auto Hydra Monster Hop", Default = false })
-
-AutoHydraMonsterHop:OnChanged(function(value)
-    _G.AutoHydraMonsterHop = value
-end)
 
 local AutoSeaMonster = Tabs.Main:AddToggle("AutoSeaMonster", {Title = "Auto Sea Monster", Default = false })
 
-AutoHydraMonsterHop:OnChanged(function(value)
+AutoHydraMonster:OnChanged(function(value)
     _G.AutoSeaKing = value
 	
     if not value then
@@ -3300,11 +3257,6 @@ AutoHydraMonsterHop:OnChanged(function(value)
     end
 end)
 
-local AutoSeaMonsterHop = Tabs.Main:AddToggle("AutoSeaMonsterHop", {Title = "Auto Sea Monster Hop", Default = false })
-
-AutoHydraMonsterHop:OnChanged(function(value)
-    _G.AutoSeaKingHop = value
-end)
 
 local AutoGhostShip = Tabs.Main:AddToggle("AutoGhostShip", {Title = "Auto Ghost Ship", Default = false })
 
@@ -3316,11 +3268,6 @@ AutoGhostShip:OnChanged(function(value)
 	end
 end)
 
-local AutoGhostShipHop = Tabs.Main:AddToggle("AutoGhostShipHop", {Title = "Auto Ghost Ship Hop", Default = false })
-
-AutoGhostShipHop:OnChanged(function(value)
-	_G.AutoGhostShipHop = value
-end)
 
 local AutoMsMonster = Tabs.Main:AddToggle("AutoMsMonster", {Title = "Auto Ms Monster", Default = false })
 
@@ -3332,11 +3279,6 @@ AutoMsMonster:OnChanged(function(value)
     end
 end)
 
-local AutoMsMonsterHop = Tabs.Main:AddToggle("AutoMsMonsterHop", {Title = "Auto Ms Monster Hop", Default = false })
-
-AutoMsMonsterHop:OnChanged(function(value)
-    _G.MsMotherHop = value
-end)
 
 local AutoKaido = Tabs.Main:AddToggle("AutoKaido", {Title = "Auto Kaido", Default = false })
 
@@ -3346,12 +3288,6 @@ AutoKaido:OnChanged(function(value)
 	if not value then
 		UseSkillFarm = false
 	end
-end)
-
-local AutoKaidoHop = Tabs.Main:AddToggle("AutoKaidoHop", {Title = "Auto Kaido Hop", Default = false })
-
-AutoKaidoHop:OnChanged(function(value)
-    _G.AutoKaidoHop = value
 end)
 
 local EnabledSpawnKaido = Tabs.Main:AddToggle("EnabledSpawnKaido", {Title = "Enabled Spawn Kaido", Default = false })
@@ -3370,7 +3306,55 @@ AutoEnma:OnChanged(function(value)
 	end
 end)
 
-local AutoEnmaHop = Tabs.Main:AddToggle("AutoEnmaHop", {Title = "Auto Enma", Default = false })
+local AutoFarmAllBoss = Tabs.Main:AddToggle("AutoFarmAllBoss", {Title = "Auto Farm All Boss", Default = false })
+
+AutoFarmAllBoss:OnChanged(function(value)
+    _G.AllBoss = value
+    if not value then
+        if UseSkillFarm then
+            UseSkillFarm = false
+        end
+		_G.AutoHydraMonster = false
+		_G.AutoSeaKing = false
+		_G.AutoGhostShip = false
+		_G.AutoEnma = false
+		_G.AutoKaido = false
+    end
+end)
+
+local AutoNewWorld = Tabs.ItemQuest:AddToggle("AutoNewWorld", {Title = "Auto New World", Default = false })
+
+AutoNewWorld:OnChanged(function(value)
+    _G.AutoNewWorld = value
+	
+    if not value then
+        UseSkillFarm = false
+    end
+end)
+
+local AutoEnabledBusoHaki = Tabs.ItemQuest:AddToggle("AutoEnabledBusoHaki", {Title = "Auto Enabled Buso Haki", Default = false })
+
+AutoEnabledBusoHaki:OnChanged(function(value)
+    _G.BusoHaki = value
+end)
+
+local AutoEnabledKenHaki = Tabs.ItemQuest:AddToggle("AutoEnabledKenHaki", {Title = "Auto Enabled Ken Haki", Default = false })
+
+AutoEnabledKenHaki:OnChanged(function(value)
+    _G.KenHaki = value
+end)
+
+local AutoEventChestHop = Tabs.ItemQuest:AddToggle("AutoEventChestHop", {Title = "Auto Event Chest Hop", Default = false })
+
+AutoEventChestHop:OnChanged(function(value)
+    _G.AutoMonsterEventHop = value
+	
+    if not value then
+        UseSkillFarm = false
+    end
+end)
+
+local AutoEnmaHop = Tabs.ItemQuest:AddToggle("AutoEnmaHop", {Title = "Auto Enma Hop", Default = false })
 
 AutoEnmaHop:OnChanged(function(value)
     _G.AutoEnma = value
@@ -3380,55 +3364,72 @@ AutoEnmaHop:OnChanged(function(value)
 	end
 end)
 
-local AutoFarmAllBoss = Tabs.Main:AddToggle("AutoFarmAllBoss", {Title = "Auto Farm All Boss", Default = false })
+local AutoKaidoHop = Tabs.ItemQuest:AddToggle("AutoKaidoHop", {Title = "Auto Kaido Hop", Default = false })
 
-AutoFarmAllBoss:OnChanged(function(value)
-    _G.AllBoss = value
+AutoKaidoHop:OnChanged(function(value)
+    _G.AutoKaidoHop = value
+end)
+
+local AutoMsMonsterHop = Tabs.ItemQuest:AddToggle("AutoMsMonsterHop", {Title = "Auto Ms Monster Hop", Default = false })
+
+AutoMsMonsterHop:OnChanged(function(value)
+    _G.MsMotherHop = value
+end)
+
+local AutoGhostShipHop = Tabs.ItemQuest:AddToggle("AutoGhostShipHop", {Title = "Auto Ghost Ship Hop", Default = false })
+
+AutoGhostShipHop:OnChanged(function(value)
+	_G.AutoGhostShipHop = value
+end)
+
+local AutoSeaMonsterHop = Tabs.ItemQuest:AddToggle("AutoSeaMonsterHop", {Title = "Auto Sea Monster Hop", Default = false })
+
+AutoSeaMonsterHop:OnChanged(function(value)
+    _G.AutoSeaKingHop = value
+end)
+
+local AutoHydraMonsterHop = Tabs.ItemQuest:AddToggle("AutoHydraMonsterHop", {Title = "Auto Hydra Monster Hop", Default = false })
+
+AutoHydraMonsterHop:OnChanged(function(value)
+    _G.AutoHydraMonsterHop = value
+end)
+
+local AutoSweetLozengeHop = Tabs.ItemQuest:AddToggle("AutoSweetLozengeHop", {Title = "Auto Sweet Lozenge Hop", Default = false })
+
+AutoSweetLozengeHop:OnChanged(function(value)
+    _G.SweetLozengeHop = value
+	
     if not value then
-        if UseSkillFarm then
-            UseSkillFarm = false
-        end
-        game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("Normal Hub"):Destroy()
-		_G.AutoHydraMonster = false
-		_G.AutoSeaKing = false
-		_G.AutoGhostShip = false
-		_G.AutoEnma = false
-		_G.AutoKaido = false
+        UseSkillFarm = false
     end
 end)
 
-local AutoFarmAllBossHop = Tabs.Main:AddToggle("AutoFarmAllBosHop", {Title = "Auto Farm All Boss Hop", Default = false })
-
-AutoFarmAllBossHop:OnChanged(function(value)
-    _G.AllBossHop = value
-end)
-
-local AutoUpDefense = Tabs.Main:AddToggle("AutoUpDefense", {Title = "Auto Up Defense", Default = false })
+local AutoUpDefense = Tabs.StatsCombat:AddToggle("AutoUpDefense", {Title = "Auto Up Defense", Default = false })
 
 AutoUpDefense:OnChanged(function(value)
     _G.UpDefens = value
 end)
 
-local AutoUpMelee = Tabs.Main:AddToggle("AutoUpMelee", {Title = "Auto Up Melee", Default = false })
+local AutoUpMelee = Tabs.StatsCombat:AddToggle("AutoUpMelee", {Title = "Auto Up Melee", Default = false })
 
 AutoUpMelee:OnChanged(function(value)
     _G.UpMelee = value
 end)
 
-local AutoUpSword = Tabs.Main:AddToggle("AutoUpSword", {Title = "Auto Up Sword", Default = false })
+local AutoUpSword = Tabs.StatsCombat:AddToggle("AutoUpSword", {Title = "Auto Up Sword", Default = false })
 
 AutoUpSword:OnChanged(function(value)
     _G.UpSword = value
 end)
 
-local AutoUpDevilFruit = Tabs.Main:AddToggle("AutoUpDevilFruit", {Title = "Auto Up Devil Fruit", Default = false })
+local AutoUpDevilFruit = Tabs.StatsCombat:AddToggle("AutoUpDevilFruit", {Title = "Auto Up Devil Fruit", Default = false })
 
 AutoUpDevilFruit:OnChanged(function(value)
     _G.UpDevilFruit = value
 end)
 
 
-local Point = Tabs.Main:AddSlider("Point", {
+local Point = Tabs.StatsCombat:AddSlider("Point", {
     Title = "Point",
     Description = "",
     Default = 4,
@@ -3439,3 +3440,39 @@ local Point = Tabs.Main:AddSlider("Point", {
         Points = value
     end
 })
+
+local skillz = Tabs.StatsCombat:AddToggle("skillz", {Title = "Skill Z", Default = true })
+
+skillz:OnChanged(function(value)
+    _G.SkillZ = value
+end)
+
+local skillx = Tabs.StatsCombat:AddToggle("skillx", {Title = "Skill X", Default = true })
+
+skillx:OnChanged(function(value)
+    _G.SkillX = value
+end)
+
+local skillc = Tabs.StatsCombat:AddToggle("skillc", {Title = "Skill C", Default = true })
+
+skillc:OnChanged(function(value)
+    _G.SkillC = value	
+end)
+
+local skillv = Tabs.StatsCombat:AddToggle("skillv", {Title = "Skill V", Default = true })
+
+skillv:OnChanged(function(value)
+    _G.SkillV = value	
+end)
+
+local skillb = Tabs.StatsCombat:AddToggle("skillB", {Title = "Skill B", Default = true })
+
+skillb:OnChanged(function(value)
+    _G.SkillB = value	
+end)
+
+local skille = Tabs.StatsCombat:AddToggle("skille", {Title = "Skill E", Default = true })
+
+skille:OnChanged(function(value)
+    _G.SkillE = value	
+end)
