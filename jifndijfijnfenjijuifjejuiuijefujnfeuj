@@ -106,17 +106,13 @@ local CheckMobile = function()
         Title = "Item & Quest",
         Icon = "list-checks"
     }),
+    Second = Window:AddTab({
+        Title = "Second Sea",
+        Icon = "leaf"
+    }),
     StatsCombat = Window:AddTab({
         Title = "Stats & Combat",
         Icon = "coins"
-    }),
-    Shop = Window:AddTab({
-        Title = "Shop",
-        Icon = "gift"
-    }),
-    Teleports = Window:AddTab({
-        Title = "Teleports",
-        Icon = "fast-forward"
     }),
     Dungeon = Window:AddTab({
         Title = "Dungeon",
@@ -3119,6 +3115,16 @@ SelectQuest:OnChanged(function(value)
     _G.IsMode = value
 end)
 
+local AutoFarmBttlpass = Tabs.Main:AddToggle("AutoFarmBttlpass", {Title = "Auto Farm Bttlpass", Default = false })
+
+AutoFarmBttlpass:OnChanged(function(value)
+    _G.AutoBattlepass = value
+	
+    if not value then
+        UseSkillFarm = false
+    end
+end)
+
 Mob = {}
 
 pcall(function()
@@ -3404,6 +3410,247 @@ AutoSweetLozengeHop:OnChanged(function(value)
     end
 end)
 
+local AutoAnubisAxeHop = Tabs.ItemQuest:AddToggle("AutoAnubisAxeHop", {Title = "Auto Anubis Axe Hop", Default = false })
+
+AutoAnubisAxeHop:OnChanged(function(value)
+    _G.AnubisAxeHop = value
+		
+    _G.AutoFarmBossHop = value
+    
+end)
+
+local AutoAdventureKnifeHop = Tabs.ItemQuest:AddToggle("AutoAdventureKnifeHop", {Title = "Auto Adventure Knife Hop", Default = false })
+
+AutoAdventureKnifeHop:OnChanged(function(value)
+    _G.AdventureKnifeHop = value
+	
+    _G.AutoFarmBossHop = value
+	
+end)
+
+local AutoCookieBladeHop = Tabs.ItemQuest:AddToggle("AutoCookieBladeHop", {Title = "Auto Cookie Blade Hop", Default = false })
+
+AutoCookieBladeHop:OnChanged(function(value)
+    _G.CookieBladeHop = value
+	
+    _G.AutoFarmBossHop = value
+end)
+
+local AutoMetalTridentHop = Tabs.ItemQuest:AddToggle("AutoMetalTridentHop", {Title = "Auto Metal Trident Hop", Default = false })
+
+AutoMetalTridentHop:OnChanged(function(value)
+    _G.MetalTridentHop = value
+		
+    _G.AutoFarmBossHop = value
+    
+end)
+
+local AutoSunkenBladeHop = Tabs.ItemQuest:AddToggle("AutoSunkenBladeHop", {Title = "Auto Sunken Blade Hop", Default = false })
+
+AutoSunkenBladeHop:OnChanged(function(value)
+    _G.SunkenBladeHop = value
+		
+    _G.AutoFarmBossHop = value
+    
+end)
+
+local espdragonkaido = Tabs.ItemQuest:AddToggle("espdragonkaido", {Title = "ESP Dragon Kaido", Default = false })
+
+espdragonkaido:OnChanged(function(value)
+    _G.ESPDK = value
+		
+    EDK()
+end)
+
+local esphydrayisland = Tabs.ItemQuest:AddToggle("esphydrayisland", {Title = "ESP Hydray Island", Default = false })
+
+esphydrayisland:OnChanged(function(value)
+    _G.ESPHD = value
+		
+    EHD()
+end)
+
+local esphseaisland = Tabs.ItemQuest:AddToggle("espseaisland", {Title = "ESP Sea Island", Default = false })
+
+esphseaisland:OnChanged(function(value)
+    _G.ESPSK = value
+		
+    ESK()
+end)
+
+local espghostship = Tabs.ItemQuest:AddToggle("espghostship", {Title = "ESP Ghost Ship", Default = false })
+
+espghostship:OnChanged(function(value)
+    _G.ESPGH = value
+		
+    EGH()
+end)
+
+local questleepung = Tabs.ItemQuest:AddToggle("questleepung", {Title = "Quest Lee Pung", Default = false })
+
+questleepung:OnChanged(function(value)
+    _G.LeePung = value
+		
+end)
+
+local questgumthirdfrom = Tabs.ItemQuest:AddToggle("questgumthirdfrom", {Title = "Quest Gum Thirdfrom", Default = false })
+
+questgumthirdfrom:OnChanged(function(value)
+    _G.GumThirdFrom = value
+		
+end)
+
+local questonimask = Tabs.ItemQuest:AddToggle("questonimask", {Title = "Quest Oni Mask", Default = false })
+
+questonimask:OnChanged(function(value)
+    _G.OniMask = value
+		
+end)
+
+local questtengumask = Tabs.ItemQuest:AddToggle("questtengumask", {Title = "Quest Tengu Mask", Default = false })
+
+questtengumask:OnChanged(function(value)
+    _G.TenguMask = value
+		
+end)
+
+
+
+
+
+local AutoAnubisAxe = Tabs.Second:AddToggle("AutoAnubisAxe", {Title = "Auto Anubis Axe", Default = false })
+
+AutoAnubisAxe:OnChanged(function(value)
+    _G.AnubisAxe = value
+		
+    _G.SelectBoss = "Anubis [Lv. 3150]"
+    _G.AutoFarmBoss = value
+    
+        if not value then
+        UseSkillFarm = false
+    end
+end)
+
+local AutoAdventureKnife = Tabs.Second:AddToggle("AutoAdventureKnife", {Title = "Auto Adventure Knife", Default = false })
+
+AutoAdventureKnife:OnChanged(function(value)
+	_G.AdventureKnife = value
+	
+    _G.SelectBoss = "Flame User [Lv. 3200]"
+    _G.AutoFarmBoss = value
+	
+        if not value then
+        UseSkillFarm = false
+    end
+end)
+
+local AutoCookieBlade = Tabs.Second:AddToggle("AutoCookieBlade", {Title = "Auto Cookie Blade", Default = false })
+
+AutoCookieBlade:OnChanged(function(value)
+    _G.CookieBlade = value
+	
+    _G.SelectBoss = "Biscuit Man [Lv. 3250]"
+    _G.AutoFarmBoss = value
+	
+        if not value then
+        UseSkillFarm = false
+    end
+end)
+
+local AutoMetalTrident = Tabs.Second:AddToggle("AutoMetalTrident", {Title = "Auto Metal Trident", Default = false })
+
+AutoMetalTrident:OnChanged(function(value)
+    _G.MetalTrident = value
+		
+    _G.SelectBoss = "Dough Master [Lv. 3275]"
+    _G.AutoFarmBoss = value
+    
+        if not value then
+        UseSkillFarm = false
+    end
+end)
+
+local AutoSunkenBlade = Tabs.Second:AddToggle("AutoSunkenBlade", {Title = "Auto Sunken Blade", Default = false })
+
+AutoSunkenBlade:OnChanged(function(value)
+    _G.SunkenBlade = value
+		
+    _G.SelectBoss = "Sunken Vessel [Lv. 3225]"
+    _G.AutoFarmBoss = value
+    
+        if not value then
+        UseSkillFarm = false
+    end
+end)
+
+PlyList = {}
+	
+for i,v in pairs(game.Players:GetChildren()) do
+    table.insert(PlyList,v.Name)
+end
+
+
+local SelectPly = Tabs.StatsCombat:AddDropdown("SelectPly", {
+    Title = "Select Player",
+    Values = PlyList,
+    Multi = false,
+})
+
+SelectPly:OnChanged(function(value)
+    Players = value
+		
+    _G.PlayerSelect = value
+    
+end)
+
+local BringPlayer = Tabs.StatsCombat:AddToggle("BringPlayer", {Title = "Bring Player", Default = false })
+
+BringPlayer:OnChanged(function(value)
+    _G.BringPlayer = value
+		
+end)
+
+local Spectate = Tabs.StatsCombat:AddToggle("Spectate", {Title = "Spectate Player", Default = false })
+
+Spectate:OnChanged(function(value)
+    _G.Spectate = value
+		
+end)
+
+local TeleportPlayer = Tabs.StatsCombat:AddToggle("TeleportPlayer", {Title = "Teleport Player", Default = false })
+
+TeleportPlayer:OnChanged(function(value)
+    _G.Teleport = value
+		
+end)
+
+task.spawn(function()
+    while task.wait() do
+        pcall(function()
+            if _G.Teleport then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[Players].Character.HumanoidRootPart.CFrame
+            end
+        end)
+    end
+end)
+
+local AutoFarmPlayer = Tabs.StatsCombat:AddToggle("AutoFarmPlayer", {Title = "AutoFarmPlayer", Default = false })
+
+AutoFarmPlayer:OnChanged(function(value)
+    _G.FarmPlayer = value
+		
+end)
+
+local AutoEnabledPvP = Tabs.StatsCombat:AddToggle("AutoEnabledPvP", {Title = "Auto Enabled PvP", Default = false })
+
+AutoEnabledPvP:OnChanged(function(value)
+    _G.EnabledPvP = value
+		
+end)
+
+
+
+
 local AutoUpDefense = Tabs.StatsCombat:AddToggle("AutoUpDefense", {Title = "Auto Up Defense", Default = false })
 
 AutoUpDefense:OnChanged(function(value)
@@ -3441,38 +3688,196 @@ local Point = Tabs.StatsCombat:AddSlider("Point", {
     end
 })
 
-local skillz = Tabs.StatsCombat:AddToggle("skillz", {Title = "Skill Z", Default = true })
+local skillz = Tabs.StatsCombat:AddToggle("skillz", {Title = "Skill Z", Default = false })
 
 skillz:OnChanged(function(value)
     _G.SkillZ = value
 end)
 
-local skillx = Tabs.StatsCombat:AddToggle("skillx", {Title = "Skill X", Default = true })
+local skillx = Tabs.StatsCombat:AddToggle("skillx", {Title = "Skill X", Default = false })
 
 skillx:OnChanged(function(value)
     _G.SkillX = value
 end)
 
-local skillc = Tabs.StatsCombat:AddToggle("skillc", {Title = "Skill C", Default = true })
+local skillc = Tabs.StatsCombat:AddToggle("skillc", {Title = "Skill C", Default = false })
 
 skillc:OnChanged(function(value)
     _G.SkillC = value	
 end)
 
-local skillv = Tabs.StatsCombat:AddToggle("skillv", {Title = "Skill V", Default = true })
+local skillv = Tabs.StatsCombat:AddToggle("skillv", {Title = "Skill V", Default = false })
 
 skillv:OnChanged(function(value)
     _G.SkillV = value	
 end)
 
-local skillb = Tabs.StatsCombat:AddToggle("skillB", {Title = "Skill B", Default = true })
+local skillb = Tabs.StatsCombat:AddToggle("skillB", {Title = "Skill B", Default = false })
 
 skillb:OnChanged(function(value)
     _G.SkillB = value	
 end)
 
-local skille = Tabs.StatsCombat:AddToggle("skille", {Title = "Skill E", Default = true })
+local skille = Tabs.StatsCombat:AddToggle("skille", {Title = "Skill E", Default = false })
 
 skille:OnChanged(function(value)
     _G.SkillE = value	
 end)
+
+local Select_Method2 = Tabs.Dungeon:AddDropdown("Select Method", {
+    Title = "Select Method",
+    Values = {"FastMode"},
+    Multi = false,
+})
+
+Select_Method2:OnChanged(function(value)
+    _G.MethodDungeons = value
+		
+end)
+
+local Select_Method3 = Tabs.Dungeon:AddDropdown("Select Mode Raid", {
+    Title = "Select Mode Raid",
+    Values = {"Easy","Normal","Hard"},
+    Multi = false,
+})
+
+Select_Method3:OnChanged(function(value)
+    _G.ModeDun = value
+		
+end)
+
+local AutoFarmDungeom = Tabs.Dungeon:AddToggle("AutoFarmDungeom", {Title = "Auto Farm Dungeon", Default = false })
+
+AutoFarmDungeom:OnChanged(function(value)
+    _G.AutoDungeon = value
+		
+    if not value then
+        UseSkillFarm = false
+    end
+end)
+
+local AutoAwakeFruit = Tabs.Dungeon:AddToggle("AutoAwakeFruit", {Title = "Auto Awake Fruit (Normal)", Default = false })
+
+AutoAwakeFruit:OnChanged(function(value)
+    _G.AutoDungeon = value
+		
+    if not value then
+        UseSkillFarm = false
+    end
+end)
+
+local AutoAwakeFruitOne = Tabs.Dungeon:AddToggle("AutoAwakeFruitOne", {Title = "Auto Awake Fruit (One Shot)", Default = false })
+
+AutoAwakeFruitOne:OnChanged(function(value)
+    _G.AutoAwakenOne = value
+		
+    if not value then
+         UseSkillFarm = false
+    end
+end)
+
+FruitsList = {
+    'SpinSpin',
+    'BombBomb',
+    'WolfWolf',
+    'GiraffeGiraffe',
+    'LeopardLeopard',
+    'HumanHuman',
+    'SpikeSpike',
+
+    'BarrierBarrier',
+    'PawPaw',
+    'LoveLove',
+    'SmokeSmoke',
+    'StringString',
+    'ShadowShadow',
+
+    'BuddhaBuddha',
+    'GumGum',
+    'SandSand',
+    'MammothMammoth',
+    'SpinosaurusSpinosaurus',
+    'AllosaurusAllosaurus',
+    'BrachiosaurusBrachiosaurus',
+    'VenomVenom',
+    'GravityGravity',
+    'OpeOpe',
+    'DarknessDarkness',
+
+    'RumbleRumble',
+    'FlameFlame',
+    'MagmaMagma',
+    'LightLight',
+    'GasGas',
+    'IceIce',
+    'SnowSnow',
+    'QuakeQuake',
+    'SpiritSpirit',
+
+    'PhoenixPhoenix',
+    'DoughDough',
+    'DragonDragon'
+}
+
+local selectfruit = Tabs.Misc:AddDropdown("SelectFruit", {
+    Title = "Selec Fruit",
+    Values = FruitsList,
+    Multi = false,
+})
+
+selectfruit:OnChanged(function(value)
+    _G.SelcetFruits = value
+		
+end)
+
+local AutoBuyFruit = Tabs.Misc:AddToggle("AutoBuyFruit", {Title = "Auto Buy Fruit", Default = false })
+
+AutoBuyFruit:OnChanged(function(value)
+    _G.AutoBuyFruit = value
+		
+end)
+
+Tabs.Misc:AddButton({
+    Title = "Bring Devil Fruits",
+    Description = "",
+    Callback = function()
+        pcall(function()
+			for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
+				if v:IsA ("Tool") then
+					firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart,v.Handle,0)
+				end
+			end
+				for i,v in pairs(game:GetService("Workspace").AllspawnDF:GetChildren()) do
+					if v:IsA ("Tool") then
+					firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart,v.Handle,0)
+				end
+			end
+		end)
+	end
+})
+
+local AutoBringDevilFruits = Tabs.Misc:AddToggle("AutoBringDevilFruits", {Title = "Auto Bring Devil Fruits", Default = false })
+
+AutoBringDevilFruits:OnChanged(function(value)
+    _G.AutoBringFruits = value
+		
+    while _G.AutoBringFruits do wait()
+        pcall(function()
+            for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
+                if v:IsA ("Tool") then
+                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart,v.Handle,0)
+                end
+            end
+                for i,v in pairs(game:GetService("Workspace").AllspawnDF:GetChildren()) do
+                    if v:IsA ("Tool") then
+                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart,v.Handle,0)
+                end
+            end
+        end)
+    end
+end)
+
+
+
+
+
